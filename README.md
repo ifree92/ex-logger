@@ -84,3 +84,44 @@ log.f("fatal");
 Output example (one for each log level):
 
 ![example console output](http://i.piccy.info/i9/4a45f080a1fee46f66dbec8140fb0f97/1478866707/24498/1088595/logger_example_view.png)
+
+#### Global log level settings
+Here is ability to set minimum log level for all Logger instances.
+```js
+var exLogger = require("ex-logger");
+exLogger.config.logLevel = exLogger.LOG_LEVELS.warning;
+
+// All available log levels:
+// exLogger.LOG_LEVELS.trace
+// exLogger.LOG_LEVELS.debug
+// exLogger.LOG_LEVELS.info
+// exLogger.LOG_LEVELS.warning
+// exLogger.LOG_LEVELS.error
+// exLogger.LOG_LEVELS.fatal
+```
+
+## Events
+Each Logger instance has a method to register callback function to call it when something is logged.
+```js
+var exLogger = require("ex-logger");
+var log = new exLogger.Logger({});
+log.on(function(logObject){
+    // ...
+});
+
+log.debug("Something);
+log.info("More...");
+```
+Here is *logObject* fields:
+```js
+{ 
+    date: '2016/11/11',
+    time: '14:37:12',
+    logLevel: 'D',
+    module: 'logtest.js',
+    line: '7',
+    symbol: '5',
+    log: 'Something',
+    dispatcher: '' 
+}
+```
