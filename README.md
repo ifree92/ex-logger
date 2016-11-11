@@ -56,6 +56,7 @@ Hierarchy of log levels:
 - warning
 - error
 - fatal
+
 Example of usage all log levels (for example let it be file *logtest.js*):
 ```js
 var exLogger = require("ex-logger");
