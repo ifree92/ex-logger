@@ -109,7 +109,7 @@ log.on(function(logObject){
     // ...
 });
 
-log.debug("Something);
+log.debug("Something");
 log.info("More...");
 ```
 Here is *logObject* fields:
