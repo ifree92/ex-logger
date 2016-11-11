@@ -185,7 +185,7 @@ Logger.prototype.__log = function(color, args, logLevel) {
 
     logObject.log = getLineFromArguments(args);
     if (this.config.singleLine)
-        logObject.log = logObject.log.replace(/\n/g, "");
+        logObject.log = logObject.log.replace(/\n/g, "").replace(/\r/g, "");
     this.emit(logObject);
     logString += " " + logObject.log;
     console.log(color(logString));
