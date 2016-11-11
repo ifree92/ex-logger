@@ -1,6 +1,6 @@
 {
   "name": "ex-logger",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Scalable multifunctional tunable logger created to resolve issues of logging any processes in a large projects",
   "main": "logger.js",
   "dependencies": {
