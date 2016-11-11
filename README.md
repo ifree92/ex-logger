@@ -109,7 +109,7 @@ log.on(function(logObject){
     // ...
 });
 
-log.debug("Something");
+log.debug("Something);
 log.info("More...");
 ```
 Here is *logObject* fields:
@@ -125,3 +125,60 @@ Here is *logObject* fields:
     dispatcher: '' 
 }
 ```
+## Dispatcher
+Each new logger instance add to dispatcher and you can subscribe to dispatcher for all loggers events or with filtered only by some dispatcher name.
+By default all new instances of Logger has empty dispatcher name and automatic registered to dispatcher with an empty name `""`.
+
+Example dispatcher usage:
+```js
+var exLogger = require("ex-logger");
+
+// subscribe on all any logger events
+exLogger.Dispatcher.on(function(logObject){
+    // ...
+});
+
+// subscribe on all Logger instances with empty dispatcher name
+exLogger.Dispatcher.on("", function(logObject){
+    // ...
+});
+
+// subscribe on all Logger instances with "requests" dispatcher name
+exLogger.Dispatcher.on("requests", function(logObject){
+    // ...
+});
+
+var log1 = new exLogger.Logger({dispatcher: "requests"});
+var log2 = new exLogger.Logger({});
+```
+
+## Tips
+
+You can log any javascript type and mix variable types in one log time.
+```js
+var exLogger = require("ex-logger");
+var log = new exLogger.Logger({singleLine: true});
+
+var auth = {user: "user", pass: "pass"};
+var names = ["John", "Jimmy", "Joe"];
+var anyString = "Hello. I'm a string";
+var year = 2016;
+var isare = true;
+var func = function() {
+    // any function
+    return {auth: true};
+}
+var nan = NaN;
+var und = undefined;
+var nil = null;
+
+log.debug(auth, names, anyString, year, isare, func, nan, und, nil);
+```
+Output:
+```
+[2016/11/11][15:03:17][D][test.js][21] {"user":"user","pass":"pass"} ["John","Jimmy","Joe"] Hello. I'm a string 2016 true function () {    // any function    return {auth: true};} NaN undefined null
+```
+
+## Support/Contacts
+Ihor Levchenko
+ifree92@gmail.com
