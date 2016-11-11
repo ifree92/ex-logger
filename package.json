@@ -1,7 +1,28 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
+  "name": "ex-logger",
+  "version": "1.0.0",
+  "description": "Scalable multifunctional tunable logger created to resolve issues of logging any processes in a large projects",
+  "main": "logger.js",
   "dependencies": {
-    "colors": "latest"
-  }
+    "colors": "^1.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ifree92/ex-logger.git"
+  },
+  "keywords": [
+    "node",
+    "logger",
+    "log"
+  ],
+  "author": "Ihor Levchenko (ifree92@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ifree92/ex-logger/issues"
+  },
+  "homepage": "https://github.com/ifree92/ex-logger#readme"
 }
