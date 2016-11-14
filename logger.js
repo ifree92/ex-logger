@@ -215,24 +215,27 @@ module.exports = {
 // Additional functions
 
 function getCallerInfo() {
+    var orig = Error.prepareStackTrace;
+    Error.prepareStackTrace = function(_, stack){ return stack; };
     var err = new Error();
-    var line = err.stack.split("\n")[4];
-    var callerInfo = {
-        file: "",
-        filePath: "",
-        line: 0,
-        symbol: 0
-    };
-    line = line.substr(line.indexOf("("));
-    line = line.substr(1, line.length - 2).split(":");
-    callerInfo.symbol = line[line.length - 1];
-    callerInfo.line = line[line.length - 2];
-    for (var i = 0; i < line.length - 2; i++) {
-        callerInfo.filePath += line[i];
+    Error.captureStackTrace(err, arguments.callee);
+    var stack = err.stack;
+    Error.prepareStackTrace = orig;
+    var curStackCaller = stack[2];
+    var fullCallerFilePath = curStackCaller.getFileName();
+    var splittedFullCallerFilePath = "";
+    if (typeof fullCallerFilePath == "string") {
+        splittedFullCallerFilePath = fullCallerFilePath.split(path.sep);
+        if (splittedFullCallerFilePath.length > 0) {
+            splittedFullCallerFilePath = splittedFullCallerFilePath[splittedFullCallerFilePath.length - 1];
+        }
     }
-    var filePath = callerInfo.filePath.split(path.sep);
-    callerInfo.file = filePath[filePath.length - 1];
-    return callerInfo;
+    return callerInfo = {
+        file: splittedFullCallerFilePath,
+        filePath: fullCallerFilePath,
+        line: curStackCaller.getLineNumber(),
+        column: curStackCaller.getColumnNumber()
+    };
 }
 
 function getLineFromArguments(args) {
