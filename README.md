@@ -19,7 +19,7 @@ Output example:
 ```
 Format review:
 ```
-[DATE][TIME][LOG_LEVEL][MODULE][LINE:SYMBOL] log string
+[DATE][TIME][LOG_LEVEL][MODULE][LINE:COLUMN] log string
 ```
 Logger constructor require (of course if you want to change default view configuration) config object. Here is default configuration for Logger:
 ```js
@@ -30,7 +30,7 @@ Logger constructor require (of course if you want to change default view configu
         showLogLevel: true,
         showModule: true,
         showLine: true,
-        showSymbol: false,
+        showColumn: false,
         dispatcher: "",
         logLevel: LOG_LEVELS.trace,
         isModuleFullPath: false,
@@ -43,7 +43,7 @@ Logger constructor require (of course if you want to change default view configu
 - **showLogLevel** *'boolean'* - show [T] | [D] | [I] | [W] | [E] | [F] log level
 - **showModule** *'boolean'* - show module name
 - **showLine** *'boolean'* - show line number where log called
-- **showSymbol** *'boolean'* - show symbol on a string where log called
+- **showColumn** *'boolean'* - show column on a string where log called
 - **dispatcher** *'string'*- 
 - **logLevel** *'number'* *(LOG_LEVELS.\*)* - minimum log level to show
 - **isModuleFullPath** *'boolean'* - as module name show full file path name where log called
@@ -121,7 +121,7 @@ Here is *logObject* fields:
     logLevel: 'D',
     module: 'logtest.js',
     line: '7',
-    symbol: '5',
+    column: '5',
     log: 'Something',
     dispatcher: '' 
 }
