@@ -85,7 +85,7 @@ function Logger(config) {
         showLogLevel: true,
         showModule: true,
         showLine: true,
-        showSymbol: false,
+        showColumn: false,
         dispatcher: "",
         logLevel: LOG_LEVELS.trace,
         isModuleFullPath: false,
@@ -106,8 +106,8 @@ function Logger(config) {
             this.config.showModule = config.showModule;
         if (config.hasOwnProperty("showLine") && typeof config.showLine == "boolean")
             this.config.showLine = config.showLine;
-        if (config.hasOwnProperty("showSymbol") && typeof config.showSymbol == "boolean")
-            this.config.showSymbol = config.showSymbol;
+        if (config.hasOwnProperty("showColumn") && typeof config.showColumn == "boolean")
+            this.config.showColumn = config.showColumn;
         if (config.hasOwnProperty("dispatcher") && typeof config.dispatcher == "string")
             this.config.dispatcher = config.dispatcher;
         if (config.hasOwnProperty("logLevel") && typeof config.logLevel == "number")
@@ -145,7 +145,6 @@ Logger.prototype.fatal = Logger.prototype.f = function() {
 };
 
 Logger.prototype.__log = function(color, args, logLevel) {
-    // console.log(this.config.logLevel, config.logLevel);
     if (logLevel < this.config.logLevel || logLevel < config.logLevel)
         return;
     var callerInfo = getCallerInfo();
@@ -155,7 +154,7 @@ Logger.prototype.__log = function(color, args, logLevel) {
         logLevel: LOG_LEVELS[logLevel],
         module: "",
         line: callerInfo.line,
-        symbol: callerInfo.symbol,
+        column: callerInfo.column,
         log: "",
         dispatcher: this.config.dispatcher
     };
@@ -178,8 +177,8 @@ Logger.prototype.__log = function(color, args, logLevel) {
     }
     if (this.config.showLine) {
         logString += "[" + logObject.line;
-        if (this.config.showSymbol)
-            logString += ":" + logObject.symbol;
+        if (this.config.showColumn)
+            logString += ":" + logObject.column;
         logString += "]";
     }
 
@@ -226,9 +225,8 @@ function getCallerInfo() {
     var splittedFullCallerFilePath = "";
     if (typeof fullCallerFilePath == "string") {
         splittedFullCallerFilePath = fullCallerFilePath.split(path.sep);
-        if (splittedFullCallerFilePath.length > 0) {
+        if (splittedFullCallerFilePath.length > 0)
             splittedFullCallerFilePath = splittedFullCallerFilePath[splittedFullCallerFilePath.length - 1];
-        }
     }
     return callerInfo = {
         file: splittedFullCallerFilePath,
